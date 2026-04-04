@@ -394,8 +394,8 @@ function renderTable(){
 <div class="name-text">${s[1]}</div>
 
 <div class="btn-row">
-<button style="${btnPStyle}" onclick="mark('${s[0]}','${s[1]}','Present',this)">✔️ Present</button>
-<button style="${btnAStyle}" onclick="mark('${s[0]}','${s[1]}','Absent',this)">❌ Absent</button>
+<button id="btnP-${s[0]}" style="${btnPStyle}" onclick="mark('${s[0]}','${s[1]}','Present',this)">✔️ Present</button>
+<button id="btnA-${s[0]}" style="${btnAStyle}" onclick="mark('${s[0]}','${s[1]}','Absent',this)">❌ Absent</button>
 <button onclick="editStudent('${s[0]}')">✏️ Edit</button>
 <button onclick="deleteStudent('${s[0]}')">🗑️ Delete</button>
 </div>
@@ -419,6 +419,38 @@ function renderTable(){
 </td>
 </tr>`;
   });
+  
+  // After local rendering, sync true data from Google Sheets backend
+  syncTodayAttendance();
+}
+
+function syncTodayAttendance() {
+  fetch(URL + "?action=getTodaysAttendance")
+  .then(res => res.json())
+  .then(data => {
+    if(!data || Object.keys(data).length === 0) return;
+
+    const today = new Date().toLocaleDateString('en-GB');
+    let localAtt = { date: today, records: data };
+    localStorage.setItem("admin_attendance", JSON.stringify(localAtt)); // Update local storage cache
+    
+    // Update live UI buttons to reflect actual backend state
+    for(let id in data) {
+       let status = data[id];
+       let btnP = document.getElementById("btnP-" + id);
+       let btnA = document.getElementById("btnA-" + id);
+       if(btnP && btnA) {
+          if(status === "Present") {
+             btnP.style.cssText = "background:var(--secondary); color:#fff; font-weight:bold; box-shadow:0 4px 10px rgba(106,176,76,0.5);";
+             btnA.style.cssText = "";
+          } else if(status === "Absent") {
+             btnA.style.cssText = "background:var(--danger); color:#fff; font-weight:bold; box-shadow:0 4px 10px rgba(231,76,60,0.5);";
+             btnP.style.cssText = "";
+          }
+       }
+    }
+  })
+  .catch(err => console.log("Failed to sync attendance from backend.", err));
 }
 
 function clearPayment(id){
