@@ -418,6 +418,7 @@ if (!studentId) {
 }
 
 function logout() {
+  localStorage.removeItem('loginSession');
   window.location.href = "login.html";
 }
 

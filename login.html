@@ -173,6 +173,16 @@
 </div>
 
 <script>
+  // Add auto-login check on page load
+  window.onload = () => {
+    const session = localStorage.getItem('loginSession');
+    if(session) {
+      const data = JSON.parse(session);
+      if(data.role === 'parent') window.location.href = "parent.html?id=" + encodeURIComponent(data.id);
+      if(data.role === 'admin') window.location.href = "admin.html";
+    }
+  };
+
   const URL = "https://script.google.com/macros/s/AKfycbxcCjauNqUeKSHnMZYZC1KW94CKzvC_PYGEugTcUPhMMb8ipEJqSR0g1ZEMLSU5tTEH0g/exec";
 function loginNow() {
   const user = document.getElementById("username").value.trim();
@@ -198,9 +208,11 @@ function loginNow() {
     const status = data.status ? data.status.toLowerCase().trim() : "";
 
     if(status === "parent") {
+      localStorage.setItem('loginSession', JSON.stringify({role: 'parent', id: user}));
       window.location.href = "parent.html?id=" + encodeURIComponent(user);
     } 
     else if(status === "admin") {
+      localStorage.setItem('loginSession', JSON.stringify({role: 'admin', id: user}));
       window.location.href = "admin.html";
     }
     else {

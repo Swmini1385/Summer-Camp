@@ -255,7 +255,13 @@ tr:hover { background: #fafafa; }
 .btn-clear { background: #95a5a6; color: white; border: none; padding: 6px 15px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s;}
 .btn-clear:hover { background: #7f8c8d; }
 
-/* Removed mobile table block to keep it horizontal as requested */
+@media (max-width: 768px) {
+  th, td { padding: 6px; font-size: 0.85rem; }
+  .child-photo { width: 50px; height: 50px; }
+  .btn-row button, .action-row button, .action-row select { font-size: 0.8rem; padding: 4px 8px; }
+  .input-group input { font-size: 0.8rem; padding: 4px; }
+  .id-box { padding: 2px 5px; font-size: 10px; }
+}
 </style>
 </head>
 
@@ -266,7 +272,7 @@ tr:hover { background: #fafafa; }
 </header>
 <div class="action-bar">
   <b class="hide-mobile">Admin Dashboard</b>
-  <button class="logout" onclick="window.location.href='login.html'">Logout 🚪</button>
+  <button class="logout" onclick="localStorage.removeItem('loginSession'); window.location.href='login.html'">Logout 🚪</button>
 </div>
 
 <div class="container">
