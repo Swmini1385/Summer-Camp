@@ -195,7 +195,7 @@ th, td {
 tr:last-child td { border-bottom: none; }
 tr:hover { background: #fafafa; }
 
-.profile-section { text-align: center; vertical-align: top; }
+.profile-section { text-align: center; width: 100px; }
 .child-photo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); margin-bottom: 8px; }
 .id-box { 
   background: #f1f2f6; 
@@ -211,7 +211,7 @@ tr:hover { background: #fafafa; }
 
 .name-text { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: var(--dark); }
 
-.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; }
+.btn-row { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
 .btn-row button { 
   border: none; 
   background: #eef2f5; 
@@ -388,8 +388,19 @@ function renderTable(){
 <td class="profile-section">
 <img src="${s[10] || 'https://via.placeholder.com/70'}" class="child-photo"><br>
 <span class="id-box" onclick="openProfile('${s[0]}')">${s[0]}</span>
+</td>
 
-<div class="payment-row" style="margin-top: 15px; text-align: left;">
+<td>
+<div class="name-text">${s[1]}</div>
+
+<div class="btn-row">
+<button style="${btnPStyle}" onclick="mark('${s[0]}','${s[1]}','Present',this)">✔️ Present</button>
+<button style="${btnAStyle}" onclick="mark('${s[0]}','${s[1]}','Absent',this)">❌ Absent</button>
+<button onclick="editStudent('${s[0]}')">✏️ Edit</button>
+<button onclick="deleteStudent('${s[0]}')">🗑️ Delete</button>
+</div>
+
+<div class="payment-row">
 <div class="input-group">
 <b>₹</b> <input type="number" id="amt-${s[0]}" value="${s[11]||''}" style="width: 55px; padding: 4px;">
 <b>UTR</b> <input type="text" id="utr-${s[0]}" value="${s[13]||''}" style="width: 125px; padding: 4px;">
@@ -404,17 +415,6 @@ function renderTable(){
 <button class="btn-save" onclick="savePayment('${s[0]}')">Save</button>
 <button class="btn-clear" onclick="clearPayment('${s[0]}')">Clear</button>
 </div>
-</div>
-</td>
-
-<td>
-<div class="name-text">${s[1]}</div>
-
-<div class="btn-row">
-<button style="${btnPStyle}" onclick="mark('${s[0]}','${s[1]}','Present',this)">✔️ Present</button>
-<button style="${btnAStyle}" onclick="mark('${s[0]}','${s[1]}','Absent',this)">❌ Absent</button>
-<button onclick="editStudent('${s[0]}')">✏️ Edit</button>
-<button onclick="deleteStudent('${s[0]}')">🗑️ Delete</button>
 </div>
 </td>
 </tr>`;
