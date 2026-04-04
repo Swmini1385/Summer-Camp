@@ -255,15 +255,7 @@ tr:hover { background: #fafafa; }
 .btn-clear { background: #95a5a6; color: white; border: none; padding: 6px 15px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s;}
 .btn-clear:hover { background: #7f8c8d; }
 
-@media (max-width: 768px) {
-  table, thead, tbody, th, td, tr { display: block; }
-  thead tr { display: none; }
-  tr { border: 1px solid var(--border); margin-bottom: 15px; border-radius: 8px; padding: 10px; }
-  td { border: none; position: relative; padding-left: 50%; border-bottom: 1px solid #eee; }
-  td:before { position: absolute; top: 15px; left: 15px; width: 45%; padding-right: 10px; white-space: nowrap; font-weight: bold; }
-  .profile-section { width: 100%; text-align: left; padding-left: 15px; }
-  .header-actions { position: static; transform: none; display: flex; justify-content: center; padding: 10px; background: white; width: 100%; }
-}
+/* Removed mobile table block to keep it horizontal as requested */
 </style>
 </head>
 
