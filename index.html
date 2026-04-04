@@ -111,32 +111,85 @@
 
     .activities {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 40px;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 15px 5px 30px 5px;
+      margin-bottom: 20px;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+      justify-content: flex-start;
+    }
+    
+    @media (min-width: 1000px) {
+      .activities {
+        justify-content: center;
+      }
+    }
+
+    .activities::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
     }
 
     .box {
+      flex: 0 0 115px; /* Reduced width to easily fit all 7 without cutting */
       background: white;
-      padding: 15px 25px;
-      border-radius: 50px;
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--dark);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      padding: 20px 5px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+      border: 3px solid transparent;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
+    }
+
+    .box .icon {
+      font-size: 38px;
+      line-height: 1;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background: #f1f2f6;
+      transition: transform 0.4s ease;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.03);
+    }
+
+    .box .text {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: 0.5px;
     }
 
     .box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(44, 62, 80, 0.15);
-      border-color: var(--primary);
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     }
+
+    .box:hover .icon {
+      transform: rotate(15deg) scale(1.15);
+    }
+
+    /* Colorful Accents for Each Card */
+    .box:nth-child(1) { border-color: #ff9ff3; }
+    .box:nth-child(1) .icon { background: #ffeaf8; }
+    .box:nth-child(2) { border-color: #feca57; }
+    .box:nth-child(2) .icon { background: #fff6e0; }
+    .box:nth-child(3) { border-color: #ff6b6b; }
+    .box:nth-child(3) .icon { background: #ffe3e3; }
+    .box:nth-child(4) { border-color: #48dbfb; }
+    .box:nth-child(4) .icon { background: #e0f9ff; }
+    .box:nth-child(5) { border-color: #1dd1a1; }
+    .box:nth-child(5) .icon { background: #e3fcf5; }
+    .box:nth-child(6) { border-color: #5f27cd; }
+    .box:nth-child(6) .icon { background: #f0e6ff; }
+    .box:nth-child(7) { border-color: #ff9f43; }
+    .box:nth-child(7) .icon { background: #ffefe0; }
 
     .register-btn {
       display: block;
@@ -446,28 +499,30 @@
   <div class="modal-overlay" id="paymentModal">
     <div class="payment-modal">
       <h2 style="margin-top:0; color: var(--dark); font-family: 'Baloo 2', cursive;">Online Payment</h2>
-      <p style="font-size: 1.1rem; color: #555;">Please complete your fee payment of <b
+      <p style="font-size: 1.1rem; color: #555; margin-bottom: 10px;">Please complete your fee payment of <b
           style="color:var(--primary); font-size:1.3rem;">₹100</b> before submitting the form.</p>
 
-      <a href="upi://pay?pa=umbarkar.yogesh@ybl&pn=YOGESH%20SHRIDHAR%20UMBARKAR&am=100&cu=INR" class="upi-btn">📲 Pay
-        ₹100 via PhonePe / UPI</a>
+      <div style="background: #f1f2f6; padding: 12px 15px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; border: 1px solid #e1e5ee;">
+        <span style="font-weight: 700; color: var(--dark); font-size: 1.1rem; letter-spacing: 0.5px;">umbarkar.yogesh@ybl</span>
+        <button type="button" onclick="navigator.clipboard.writeText('umbarkar.yogesh@ybl'); alert('UPI ID Copied! \nआता तुमच्या PhonePe ॲप मध्ये जाऊन To Bank/UPI ID वर क्लिक करून ₹१०० पे करा.');" style="background: var(--dark); color: white; border: none; padding: 6px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Copy</button>
+      </div>
 
-      <p style="font-size: 0.9rem; color: #777; line-height:1.4; margin-bottom: 5px;"><i>टीप: मोबाईलवर वरील बटण दाबल्यास
-          तुमचे PhonePe/GPay ॲप थेट उघडेल. पेमेंट पूर्ण झाल्यावर खालील बटण दाबा.</i></p>
+      <!-- Removed am=100 and added mc=0000 to bypass security blocked by PhonePe -->
+      <a href="upi://pay?pa=umbarkar.yogesh@ybl&pn=YOGESH%20SHRIDHAR%20UMBARKAR&cu=INR&mc=0000&tr=CAMP2026" class="upi-btn" style="margin: 10px 0;">📲 Open PhonePe / GPay</a>
 
-      <div style="margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 10px; border: 1px dashed #ccc;">
-        <p style="font-size: 0.95rem; color: #555; margin-top: 0; line-height: 1.3;"><b>किंवा স্কॅन करा:</b> जर तुम्ही
-          लॅपटॉप/PC वर असाल, तर तुमच्या मोबाईलमधून खालील <b>QR कोड स्कॅन करून</b> ₹१०० भरा.</p>
+      <p style="font-size: 0.85rem; color: #e74c3c; line-height:1.4; margin-bottom: 10px;"><i>टीप: जर Security एरर येत असेल, तर वरील UPI ID Copy करा आणि PhonePe वर जाऊन व्यक्तिशः ₹१०० भरा.</i></p>
+
+      <div style="margin-top: 15px; padding: 10px; background: #fdfdfd; border-radius: 10px; border: 1px dashed #ccc;">
+        <p style="font-size: 0.95rem; color: #555; margin-top: 0; margin-bottom: 10px; line-height: 1.3;"><b>किंवा QR स्कॅन करा:</b></p>
         <img
-          src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3Dumbarkar.yogesh%40ybl%26pn%3DYOGESH%2520SHRIDHAR%2520UMBARKAR%26am%3D100%26cu%3DINR"
+          src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3Dumbarkar.yogesh%40ybl%26pn%3DYOGESH%2520SHRIDHAR%2520UMBARKAR%26am%3D100%26cu%3DINR%26mc%3D0000"
           alt="UPI QR Code"
           style="border: 4px solid #fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 130px; height: 130px; display: block; margin: 0 auto;">
       </div>
 
       <hr style="border: none; border-top: 1px dashed #ddd; margin: 20px 0;">
 
-      <button class="confirm-pay-btn" id="confirmPayBtn" onclick="finalizeRegistration()">✅ Payment Completed (Submit
-        Form)</button>
+      <button class="confirm-pay-btn" id="confirmPayBtn" onclick="finalizeRegistration()">✅ Payment Completed (Submit Form)</button>
       <button class="cancel-pay-btn" onclick="closeModal()">Cancel / Pay Later</button>
     </div>
   </div>
@@ -483,17 +538,19 @@
   <div class="container">
     <div class="about">
       <h2>Welcome to Summer Camp 2026</h2>
-      <p>मुलांसाठी मजेदार activities आणि learning!</p>
+      <p style="line-height: 1.6;">सुट्टीचा आनंद दुप्पट, जेव्हा मुले शिकतील हसत-खेळत! 🚀<br>
+        <span style="color: var(--primary-dark); font-weight: bold; font-size: 1.1em;">मुलांसाठी मजेदार Activities आणि नाविन्यपूर्ण Learning चा अनोखा संगम..</span>
+      </p>
     </div>
 
     <div class="activities">
-      <div class="box">🎨 Drawing</div>
-      <div class="box">💃 Dance</div>
-      <div class="box">⚽ Sports</div>
-      <div class="box">📖 Story Telling</div>
-      <div class="box">✂️ Craft</div>
-      <div class="box">🧘 Yoga</div>
-      <div class="box">🎉 Fun & Masti</div>
+      <div class="box"><div class="icon">🎨</div><div class="text">Drawing</div></div>
+      <div class="box"><div class="icon">💃</div><div class="text">Dance</div></div>
+      <div class="box"><div class="icon">⚽</div><div class="text">Sports</div></div>
+      <div class="box"><div class="icon">📖</div><div class="text">Story Telling</div></div>
+      <div class="box"><div class="icon">✂️</div><div class="text">Craft</div></div>
+      <div class="box"><div class="icon">🧘</div><div class="text">Yoga</div></div>
+      <div class="box"><div class="icon">🎉</div><div class="text">Fun & Masti</div></div>
     </div>
 
     <button class="register-btn" onclick="showForm()">Register Now</button>
