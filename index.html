@@ -535,6 +535,7 @@
   </header>
 
   <div class="action-bar">
+    <button id="installAppBtn" class="login-btn" style="display:none; margin-right: 15px; background: var(--secondary);">📱 Install ॲप</button>
     <button class="login-btn" onclick="goLogin()">Admin / Parent Login ➡️</button>
   </div>
 
@@ -766,6 +767,38 @@
         console.log("Service Worker Registered");
       });
     }
+
+    let deferredPrompt;
+    const installBtn = document.getElementById('installAppBtn');
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent browser from showing default prompt automatically if needed
+      e.preventDefault();
+      deferredPrompt = e;
+      // Show our custom install button
+      if(installBtn) installBtn.style.display = 'inline-block';
+    });
+
+    if(installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          // Show the install prompt
+          deferredPrompt.prompt();
+          // Wait for user to respond
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log(`User response to the install prompt: ${outcome}`);
+          // We've used the prompt, and can't use it again, hide it
+          deferredPrompt = null;
+          installBtn.style.display = 'none';
+        }
+      });
+    }
+
+    window.addEventListener('appinstalled', () => {
+      // Hide the app-provided install promotion
+      if(installBtn) installBtn.style.display = 'none';
+      console.log('PWA was installed');
+    });
   </script>
 </body>
 
