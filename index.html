@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="mr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>चिमुकला उत्सव Summer Camp 2026</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Outfit:wght@300;400;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* Modern CSS Reset & Tokens */
+    :root {
+      --primary: #f48024;
+      --primary-dark: #d35400;
+      --secondary: #6ab04c;
+      --dark: #2c3e50;
+      --bg-color: #fdf8e4;
+      --glass-bg: rgba(255, 255, 255, 0.95);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-color);
+      color: #333;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    header {
+      background: #fff;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+      position: relative;
+      z-index: 100;
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .header-banner {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .login-btn {
+      background: var(--dark);
+      color: white;
+      padding: 10px 24px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+      background: #1a252f;
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 15px 20px 0 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .about {
+      text-align: center;
+      padding: 40px 30px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      margin: 40px auto;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--glass-border);
+    }
+
+    .about h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-top: 0;
+    }
+
+    .about p {
+      font-size: 1.2rem;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .activities {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .box {
+      background: white;
+      padding: 15px 25px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--dark);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(44, 62, 80, 0.15);
+      border-color: var(--primary);
+    }
+
+    .register-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 16px 40px;
+      font-size: 20px;
+      font-weight: 700;
+      background: var(--secondary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(106, 176, 76, 0.3);
+      transition: all 0.3s ease;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .register-btn:hover {
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 12px 25px rgba(106, 176, 76, 0.4);
+    }
+
+    #registerSection {
+      display: none;
+      justify-content: center;
+      padding: 20px 0;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    form {
+      width: 100%;
+      max-width: 550px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--glass-border);
+      box-sizing: border-box;
+    }
+
+    form h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.8rem;
+      color: var(--dark);
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+      color: var(--dark);
+      font-size: 0.95rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px 15px;
+      box-sizing: border-box;
+      border: 2px solid #e1e5ee;
+      border-radius: 10px;
+      background: #fdfdfd;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(244, 128, 36, 0.15);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--secondary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(106, 176, 76, 0.3);
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(106, 176, 76, 0.4);
+    }
+
+    .submit-btn:disabled {
+      background: #bdc3c7;
+      box-shadow: none;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      border: 2px solid var(--secondary);
+      margin-top: 20px;
+      box-shadow: var(--shadow);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .login-redirect-btn {
+      background: var(--primary);
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .login-redirect-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .wa-btn {
+      background: #25D366;
+      color: white;
+      padding: 14px 28px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+      transition: 0.3s;
+      animation: pulse 2s infinite;
+      letter-spacing: 0.5px;
+    }
+
+    .wa-btn:hover {
+      background: #1ebd5a;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+
+    /* Payment Modal Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .payment-modal {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      border-top: 5px solid var(--primary);
+    }
+
+    .upi-btn {
+      display: block;
+      background: #5f259f;
+      /* PhonePe color */
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-decoration: none;
+      margin: 20px 0;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(95, 37, 159, 0.3);
+    }
+
+    .upi-btn:hover {
+      background: #4a1c7c;
+      transform: translateY(-2px);
+    }
+
+    .confirm-pay-btn {
+      background: var(--secondary);
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(106, 176, 76, 0.3);
+      font-family: inherit;
+    }
+
+    .confirm-pay-btn:hover {
+      background: #509e35;
+      transform: translateY(-2px);
+    }
+
+    .cancel-pay-btn {
+      background: none;
+      border: none;
+      color: #888;
+      margin-top: 15px;
+      cursor: pointer;
+      text-decoration: underline;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .cancel-pay-btn:hover {
+      color: var(--dark);
+    }
+
+    @media (max-width: 600px) {
+      .login-btn {
+        width: 100%;
+      }
+
+      header {
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 0px;
+      }
+
+      form {
+        padding: 25px;
+      }
+
+      .form-group-flex {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Payment Modal Overlay -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="payment-modal">
+      <h2 style="margin-top:0; color: var(--dark); font-family: 'Baloo 2', cursive;">Online Payment</h2>
+      <p style="font-size: 1.1rem; color: #555;">Please complete your fee payment of <b
+          style="color:var(--primary); font-size:1.3rem;">₹100</b> before submitting the form.</p>
+
+      <a href="upi://pay?pa=umbarkar.yogesh@ybl&pn=Summer%20Camp&am=100&cu=INR" class="upi-btn">📲 Pay
+        ₹100 via PhonePe</a>
+
+      <p style="font-size: 0.9rem; color: #777; line-height:1.4; margin-bottom: 5px;"><i>टीप: मोबाईलवर वरील बटण दाबल्यास
+          तुमचे PhonePe/GPay ॲप थेट उघडेल. पेमेंट पूर्ण झाल्यावर खालील बटण दाबा.</i></p>
+
+      <div style="margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 10px; border: 1px dashed #ccc;">
+        <p style="font-size: 0.95rem; color: #555; margin-top: 0; line-height: 1.3;"><b>किंवा স্কॅन करा:</b> जर तुम्ही
+          लॅपटॉप/PC वर असाल, तर तुमच्या मोबाईलमधून खालील <b>QR कोड स्कॅन करून</b> ₹१०० भरा.</p>
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3Dumbarkar.yogesh%40ybl%26pn%3DSummer%2520Camp%26am%3D100%26cu%3DINR"
+          alt="UPI QR Code"
+          style="border: 4px solid #fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 130px; height: 130px; display: block; margin: 0 auto;">
+      </div>
+
+      <hr style="border: none; border-top: 1px dashed #ddd; margin: 20px 0;">
+
+      <button class="confirm-pay-btn" id="confirmPayBtn" onclick="finalizeRegistration()">✅ Payment Completed (Submit
+        Form)</button>
+      <button class="cancel-pay-btn" onclick="closeModal()">Cancel / Pay Later</button>
+    </div>
+  </div>
+
+  <header>
+    <img src="banner.jpg" alt="चिमुकला उत्सव Summer Camp" class="header-banner">
+  </header>
+
+  <div class="action-bar">
+    <button class="login-btn" onclick="goLogin()">Admin / Parent Login ➡️</button>
+  </div>
+
+  <div class="container">
+    <div class="about">
+      <h2>Welcome to Summer Camp 2026</h2>
+      <p>मुलांसाठी मजेदार activities आणि learning!</p>
+    </div>
+
+    <div class="activities">
+      <div class="box">🎨 Drawing</div>
+      <div class="box">💃 Dance</div>
+      <div class="box">⚽ Sports</div>
+      <div class="box">📖 Story Telling</div>
+      <div class="box">✂️ Craft</div>
+      <div class="box">🧘 Yoga</div>
+      <div class="box">🎉 Fun & Masti</div>
+    </div>
+
+    <button class="register-btn" onclick="showForm()">Register Now</button>
+
+    <section id="registerSection">
+      <div id="messageBox" class="success-msg">
+        <h2 style="color: var(--secondary); font-family: 'Baloo 2', cursive;">चिमुकला उत्सव Summer Camp 2026</h2>
+        <p id="resContent" style="font-size: 1.2rem; line-height: 1.6; color: #333;"></p>
+
+        <div style="margin: 25px 0;">
+          <a href="https://chat.whatsapp.com/BDoG6Ye4yqe6DsSHrDVtRZ" target="_blank" class="wa-btn">
+            💬 Join WhatsApp Group 🚀
+          </a>
+          <p style="font-size: 0.95rem; color: #e74c3c; font-weight: bold; margin-top: 10px;">(सर्व पुढील सूचनांसाठी
+            ग्रुप जॉईन करणे अनिवार्य आहे!)</p>
+        </div>
+
+        <button class="login-redirect-btn" onclick="goLogin()">पुढे जा (Go to Login)</button>
+      </div>
+
+      <form id="childForm" onsubmit="registerNow(event)">
+        <h3>Register Form</h3>
+
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="fullName" required>
+        </div>
+
+        <div class="form-group form-group-flex" style="display: flex; gap: 15px;">
+          <div style="flex: 1;">
+            <label>DOB</label>
+            <input type="date" id="dob" onchange="calculateAge()" required>
+          </div>
+          <div style="flex: 1;">
+            <label>Age</label>
+            <input type="number" id="age" readonly required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Standard</label>
+          <input type="text" id="standard" required>
+        </div>
+
+        <div class="form-group">
+          <label>Address</label>
+          <textarea id="address" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Parent</label>
+          <input type="text" id="parentName" required>
+        </div>
+
+        <div class="form-group">
+          <label>WhatsApp</label>
+          <input type="tel" id="whatsapp" required>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" required>
+        </div>
+
+        <div class="form-group form-group-flex" style="display: flex; gap: 15px; margin-bottom: 20px;">
+          <div style="flex: 1;">
+            <label>Camp Fee</label>
+            <input type="text" value="₹ 100" readonly style="font-weight: bold; background: #eee; color: #d35400;">
+          </div>
+          <div style="flex: 1;">
+            <label>Payment Mode</label>
+            <select id="paymentMode" required
+              style="width: 100%; padding: 12px 15px; border: 2px solid #e1e5ee; border-radius: 10px; font-family: 'Outfit'; font-size: 1rem; cursor: pointer; transition: 0.3s; background: #fdfdfd;">
+              <option value="Cash" selected>Cash</option>
+              <option value="Online">Online (PhonePe / UPI)</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">💳 Pay Now & Submit</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbxcCjauNqUeKSHnMZYZC1KW94CKzvC_PYGEugTcUPhMMb8ipEJqSR0g1ZEMLSU5tTEH0g/exec";
+
+    function calculateAge() {
+      const dobInput = document.getElementById('dob').value;
+      if (!dobInput) return;
+      const dob = new Date(dobInput);
+      const today = new Date();
+      let age = today.getFullYear() - dob.getFullYear();
+      const m = today.getMonth() - dob.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+      document.getElementById('age').value = age;
+    }
+
+    function showForm() {
+      document.getElementById("registerSection").style.display = "flex";
+      document.getElementById("childForm").style.display = "block";
+      document.getElementById("messageBox").style.display = "none";
+      window.requestAnimationFrame(() => {
+        document.getElementById("registerSection").scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    function goLogin() {
+      window.location.href = "login.html";
+    }
+
+    let preCompiledFormData = null;
+
+    function closeModal() {
+      document.getElementById("paymentModal").style.display = "none";
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = false;
+      btn.innerText = "💳 Pay Now & Submit";
+    }
+
+    function registerNow(e) {
+      e.preventDefault();
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.innerText = "Please wait... ⏳";
+
+      const fd = new FormData();
+      fd.append("action", "register");
+      fd.append("name", document.getElementById("fullName").value);
+      fd.append("dob", document.getElementById("dob").value);
+      fd.append("age", document.getElementById("age").value);
+      fd.append("standard", document.getElementById("standard").value);
+      fd.append("address", document.getElementById("address").value);
+      fd.append("parent", document.getElementById("parentName").value);
+      fd.append("whatsapp", document.getElementById("whatsapp").value);
+      fd.append("email", document.getElementById("email").value);
+      fd.append("password", document.getElementById("password").value);
+      fd.append("paymentMode", document.getElementById("paymentMode").value); // Send payment mode
+
+      preCompiledFormData = fd;
+
+      const mode = document.getElementById("paymentMode").value;
+      if (mode === "Online") {
+        // Show Modal for payment 
+        document.getElementById("paymentModal").style.display = "flex";
+      } else {
+        // Direct submit for Cash
+        finalizeRegistration();
+      }
+    }
+
+    function finalizeRegistration() {
+      document.getElementById("paymentModal").style.display = "none";
+
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.innerText = "Submitting Data... ☁️";
+
+      const confBtn = document.getElementById("confirmPayBtn");
+      if (confBtn) { confBtn.disabled = true; confBtn.innerText = "Processing... ⏳"; }
+
+      fetch(API_URL, { method: "POST", body: preCompiledFormData })
+        .then(res => res.text())
+        .then(text => {
+          let data;
+          try {
+            data = JSON.parse(text);
+          } catch (err) {
+            alert("❌ Error parsing response");
+            return;
+          }
+
+          if (data.id) {
+            document.getElementById("childForm").style.display = "none";
+            document.getElementById("messageBox").style.display = "block";
+            document.getElementById("resContent").innerHTML =
+              `<br>🎉 <b>नोंदणी यशस्वी झाली! (Registration Successful)</b><br><br>
+         <span style="font-size: 1.3rem; display: block; margin-bottom: 8px;">तुमचा ID: <b style="color:#d35400;">${data.id}</b></span>
+         <span style="font-size: 1.3rem; display: block;">तुमचा Password: <b style="color:#d35400;">${data.password}</b></span><br>
+         <em style="font-size: 0.9rem; color: #666;">(तुमचा ID आणि Password लिहून ठेवा.)</em>`;
+            document.getElementById("childForm").reset();
+            window.requestAnimationFrame(() => {
+              document.getElementById("messageBox").scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+          } else {
+            alert("❌ Error: Something went wrong");
+          }
+        })
+        .catch((err) => {
+          alert("❌ Connection Error");
+          console.error(err);
+        })
+        .finally(() => {
+          // Reset buttons state
+          btn.disabled = false;
+          btn.innerText = "💳 Pay Now & Submit";
+          if (confBtn) { confBtn.disabled = false; confBtn.innerText = "✅ Payment Completed (Submit Form)"; }
+        });
+    }
+  </script>
+</body>
+
+</html>

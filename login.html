@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - चिमुकला उत्सव 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #f48024;
+    --primary-dark: #d35400;
+    --secondary: #6ab04c;
+    --dark: #2c3e50;
+    --bg-color: #fdf8e4;
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  body { 
+    font-family: 'Outfit', sans-serif; 
+    background: var(--bg-color); 
+    margin: 0; 
+    padding: 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #333;
+  }
+
+  .login-wrapper {
+    width: 100%;
+    max-width: 480px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  header { 
+    text-align: center; 
+    margin-bottom: 20px; 
+    width: 100%;
+  }
+
+  .header-banner {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    border: 3px solid var(--primary);
+  }
+
+  .login-container { 
+    background: var(--glass-bg); 
+    backdrop-filter: blur(15px);
+    padding: 40px 30px; 
+    border-radius: 20px; 
+    box-shadow: var(--shadow); 
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.5);
+  }
+
+  .login-container h2 {
+    font-family: 'Baloo 2', cursive;
+    margin-top: 0;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 25px;
+  }
+
+  .input-group {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 0.95rem;
+  }
+
+  input { 
+    width: 100%; 
+    padding: 14px; 
+    border: 2px solid #e1e5ee; 
+    border-radius: 10px; 
+    box-sizing: border-box; 
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    background: #fdfdfd;
+    transition: 0.3s;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(244, 128, 36, 0.15);
+  }
+
+  .btn { 
+    width: 100%; 
+    padding: 14px; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 1.1rem; 
+    font-weight: 700; 
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.3s ease;
+  }
+
+  .login-btn { 
+    background: var(--secondary); 
+    color: white; 
+    box-shadow: 0 5px 15px rgba(106, 176, 76, 0.3);
+  }
+
+  .login-btn:hover:not(:disabled) {
+    background: #509e35;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(106, 176, 76, 0.4);
+  }
+
+  .login-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .back-link:hover { color: var(--primary); }
+</style>
+</head>
+<body>
+
+<div class="login-wrapper">
+  <header>
+    <img src="banner.jpg" alt="चिमुकला उत्सव Banner" class="header-banner">
+  </header>
+
+  <div class="login-container">
+    <h2>Login</h2>
+    
+    <div class="input-group">
+      <label>User ID (तुमचा ID टाका)</label>
+      <input type="text" id="username" placeholder="ID">
+    </div>
+
+    <div class="input-group">
+      <label>Password (Password टाका)</label>
+      <input type="password" id="password" placeholder="Password">
+    </div>
+
+    <button type="button" class="btn login-btn" onclick="loginNow()">Login करा</button>
+  </div>
+  
+  <div style="text-align: center;">
+    <a href="index.html" class="back-link">← Back to Home / Registration</a>
+  </div>
+</div>
+
+<script>
+  const URL = "https://script.google.com/macros/s/AKfycbxcCjauNqUeKSHnMZYZC1KW94CKzvC_PYGEugTcUPhMMb8ipEJqSR0g1ZEMLSU5tTEH0g/exec";
+function loginNow() {
+  const user = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value.trim();
+  const btn = document.querySelector(".login-btn");
+
+  if(!user || !pass) { 
+    alert("ID आणि Password टाका!"); 
+    return; 
+  }
+
+  btn.innerText = "तपासत आहे... ⏳";
+  btn.disabled = true;
+
+  const fd = new FormData();
+  fd.append("action", "login");
+  fd.append("username", user);
+  fd.append("password", pass);
+
+  fetch(URL, { method: "POST", body: fd })
+  .then(res => res.json())
+  .then(data => {
+    const status = data.status ? data.status.toLowerCase().trim() : "";
+
+    if(status === "parent") {
+      window.location.href = "parent.html?id=" + encodeURIComponent(user);
+    } 
+    else if(status === "admin") {
+      window.location.href = "admin.html";
+    }
+    else {
+      alert("❌ चुकीचा ID किंवा Password!");
+      btn.innerText = "Login करा";
+      btn.disabled = false;
+    }
+  })
+  .catch(err => {
+    alert("नेटवर्क एरर! config.js तपासा.");
+    btn.disabled = false;
+    btn.innerText = "Login करा";
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #f48024;
+  --primary-dark: #d35400;
+  --secondary: #6ab04c;
+  --dark: #2c3e50;
+  --bg: #fdf8e4; /* Cream background */
+  --card-bg: #fff;
+  --border: #f1ebd8;
+  --success: #6ab04c;
+  --danger: #e74c3c;
+  --warning: #f48024;
+}
+
+body { 
+  font-family: 'Outfit', sans-serif; 
+  background: var(--bg); 
+  margin: 0; 
+  padding: 0; 
+  color: var(--dark);
+}
+
+header { 
+  background: var(--card-bg); 
+  padding: 0; 
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 3px solid var(--primary);
+  display: flex;
+  align-items: center;
+}
+
+.header-banner {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.action-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px 20px 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.action-bar b {
+  color: var(--dark);
+  font-size: 1.1rem;
+  margin-right: 15px;
+}
+
+.logout { 
+  background: var(--dark); 
+  color: white; 
+  border: none; 
+  padding: 8px 16px; 
+  border-radius: 6px;
+  cursor: pointer; 
+  font-weight: 600;
+  transition: 0.3s;
+  font-family: 'Outfit', sans-serif;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.logout:hover { background: #1a252f; transform: translateY(-2px); }
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stats-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  border-left: 5px solid var(--primary);
+  color: var(--dark);
+}
+
+.stats-card span {
+  color: var(--primary-dark);
+  margin-left: 10px;
+  font-size: 1.5rem;
+}
+
+.btn-upload {
+  width: 100%;
+  padding: 15px;
+  background: var(--secondary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(106, 176, 76, 0.3);
+  font-family: inherit;
+  margin-bottom: 20px;
+}
+
+.btn-upload:hover {
+  background: #509e35;
+  transform: translateY(-2px);
+}
+
+#uploadPanel {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+#studentSelect { max-height:200px; overflow-y:auto; border:1px solid #ccc; padding:10px; margin-top:10px; border-radius: 6px; background: white; }
+#studentSelect label { display: block; padding: 6px 0; border-bottom: 1px solid #f1f1f1; cursor: pointer; }
+#studentSelect label:last-child { border-bottom: none; }
+#studentSelect input { margin-right: 10px; }
+
+.btn-action {
+  background: var(--warning);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.search-box {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.search-box:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(244, 128, 36, 0.15);
+}
+
+/* Table Design */
+.table-responsive {
+  overflow-x: auto;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  text-align: left;
+}
+
+thead th {
+  background: #fdfdfd;
+  font-weight: 600;
+  color: var(--dark);
+  padding: 15px;
+  border-bottom: 2px solid var(--border);
+}
+
+th, td { 
+  border-bottom: 1px solid var(--border); 
+  padding: 15px; 
+  vertical-align: top; 
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover { background: #fafafa; }
+
+.profile-section { text-align: center; width: 100px; }
+.child-photo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); margin-bottom: 8px; }
+.id-box { 
+  background: #f1f2f6; 
+  font-size: 12px; 
+  padding: 4px 8px; 
+  border-radius: 4px;
+  display: inline-block; 
+  cursor:pointer; 
+  font-weight: 600;
+  color: var(--dark);
+  border: 1px solid #ccc;
+}
+
+.name-text { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: var(--dark); }
+
+.btn-row { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+.btn-row button { 
+  border: none; 
+  background: #eef2f5; 
+  padding: 6px 12px; 
+  font-size: 12px; 
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer; 
+  transition: 0.2s;
+  color: var(--dark);
+}
+.btn-row button:hover { background: #cbd4db; }
+
+.payment-row { 
+  background: #fdfdfd; 
+  padding: 12px; 
+  border-radius: 8px;
+  border: 1px dashed #ccc;
+}
+
+.input-group { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.input-group input { 
+  border: 1px solid #ccc; 
+  padding: 6px 10px; 
+  border-radius: 4px;
+  font-family: inherit;
+}
+.input-group b { color: #555; }
+
+.action-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.action-row select {
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+.btn-save { background: var(--success); color: white; border: none; padding: 6px 15px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s;}
+.btn-save:hover { background: #509e35; }
+
+.btn-clear { background: #95a5a6; color: white; border: none; padding: 6px 15px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s;}
+.btn-clear:hover { background: #7f8c8d; }
+
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr { display: block; }
+  thead tr { display: none; }
+  tr { border: 1px solid var(--border); margin-bottom: 15px; border-radius: 8px; padding: 10px; }
+  td { border: none; position: relative; padding-left: 50%; border-bottom: 1px solid #eee; }
+  td:before { position: absolute; top: 15px; left: 15px; width: 45%; padding-right: 10px; white-space: nowrap; font-weight: bold; }
+  .profile-section { width: 100%; text-align: left; padding-left: 15px; }
+  .header-actions { position: static; transform: none; display: flex; justify-content: center; padding: 10px; background: white; width: 100%; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="banner.jpg" alt="Admin Dashboard Banner" class="header-banner">
+</header>
+<div class="action-bar">
+  <b class="hide-mobile">Admin Dashboard</b>
+  <button class="logout" onclick="window.location.href='login.html'">Logout 🚪</button>
+</div>
+
+<div class="container">
+  <div class="stats-card">
+    💰 Total Collection: ₹<span id="totalAmt">0</span>
+  </div>
+
+  <button class="btn-upload" onclick="toggleUpload()">
+    📸 Upload Activity Photos
+  </button>
+
+  <div id="uploadPanel" style="display:none;">
+    <h3 style="margin-top:0;">Select Photos to Upload</h3>
+    <input type="file" id="activityPhotos" multiple style="margin-bottom: 10px;"><br>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <b>Select Students:</b>
+      <label style="cursor: pointer; color: var(--primary); font-size: 0.9rem; font-weight: bold;"><input type="checkbox" onchange="toggleAllStudents(this)"> Select All</label>
+    </div>
+    <div id="studentSelect">Loading students...</div><br>
+    
+    <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+      <button class="btn-action" style="background: var(--success);" onclick="uploadPhotos()">📤 Upload Now</button>
+      <button class="btn-action" style="background: var(--dark);" onclick="bulkPrintCards()">🖨️ Print ID Cards</button>
+    </div>
+  </div>
+
+  <div>
+    <input type="text" id="search" class="search-box" placeholder="Search ID or Name..." onkeyup="renderTable()">
+  </div>
+
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 50px;">Sr</th>
+          <th>Profile</th>
+          <th>Details & Actions</th>
+        </tr>
+      </thead>
+      <tbody id="studentBody">
+        <!-- Records will load here -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxcCjauNqUeKSHnMZYZC1KW94CKzvC_PYGEugTcUPhMMb8ipEJqSR0g1ZEMLSU5tTEH0g/exec";
+
+let students = [];
+
+// ✅ LOAD DATA FIX
+function loadData(){
+  fetch(API_URL + "?action=getData")
+  .then(res=>res.json())
+  .then(data=>{
+    students=data;
+    renderTable();
+    calcTotal();
+    loadStudentCheckbox();
+  })
+  .catch(err=>{
+    console.error(err);
+    alert("❌ Data Load Error");
+  });
+}
+
+window.onload=loadData;
+
+function calcTotal(){
+  let total=0;
+  students.forEach(s=>{
+    total += Number(s[11] || 0);
+  });
+  document.getElementById("totalAmt").innerText = total;
+}
+
+function loadStudentCheckbox(){
+  const box = document.getElementById("studentSelect");
+  box.innerHTML = "";
+
+  students.forEach(s=>{
+    box.innerHTML += `
+    <label>
+      <input type="checkbox" value="${s[0]}"> <b>${s[0]}</b> - ${s[1]}
+    </label>`;
+  });
+}
+
+function renderTable(){
+  const tbody=document.getElementById("studentBody");
+  const search=document.getElementById("search").value.toLowerCase();
+  tbody.innerHTML="";
+  let sr=1;
+
+  const today = new Date().toLocaleDateString('en-GB');
+  let localAtt = JSON.parse(localStorage.getItem("admin_attendance") || "{}");
+  if(localAtt.date !== today) {
+    localAtt = { date: today, records: {} };
+  }
+
+  students.forEach(s=>{
+    if(s[1].toLowerCase().indexOf(search)===-1 && s[0].toLowerCase().indexOf(search)===-1) return;
+
+    let stat = localAtt.records[s[0]];
+    let btnPStyle = stat === 'Present' ? 'background: var(--success); color: white;' : '';
+    let btnAStyle = stat === 'Absent' ? 'background: var(--danger); color: white;' : '';
+
+    tbody.innerHTML += `
+<tr>
+<td style="text-align:center;"><b>${sr++}</b></td>
+
+<td class="profile-section">
+<img src="${s[10] || 'https://via.placeholder.com/70'}" class="child-photo"><br>
+<span class="id-box" onclick="openProfile('${s[0]}')">${s[0]}</span>
+</td>
+
+<td>
+<div class="name-text">${s[1]}</div>
+
+<div class="btn-row">
+<button style="${btnPStyle}" onclick="mark('${s[0]}','${s[1]}','Present',this)">✔️ Present</button>
+<button style="${btnAStyle}" onclick="mark('${s[0]}','${s[1]}','Absent',this)">❌ Absent</button>
+<button onclick="editStudent('${s[0]}')">✏️ Edit</button>
+<button onclick="deleteStudent('${s[0]}')">🗑️ Delete</button>
+</div>
+
+<div class="payment-row">
+<div class="input-group">
+<b>₹</b> <input type="number" id="amt-${s[0]}" value="${s[11]||''}">
+<b>UTR</b> <input type="text" id="utr-${s[0]}" value="${s[13]||''}" style="width:100px">
+</div>
+
+<div class="action-row">
+<select id="mode-${s[0]}">
+<option value="Cash" ${s[12]==='Cash'?'selected':''}>Cash</option>
+<option value="Online" ${s[12]==='Online'?'selected':''}>Online</option>
+</select>
+
+<button class="btn-save" onclick="savePayment('${s[0]}')">Save</button>
+<button class="btn-clear" onclick="clearPayment('${s[0]}')">Clear</button>
+</div>
+</div>
+</td>
+</tr>`;
+  });
+}
+
+function clearPayment(id){
+  document.getElementById("amt-"+id).value="";
+  document.getElementById("utr-"+id).value="";
+  document.getElementById("mode-"+id).value="Cash";
+}
+
+function openProfile(id){
+  window.open("parent.html?id="+id+"&view=admin","_blank");
+}
+
+function editStudent(id){
+  let s = students.find(x=>x[0]==id);
+
+  const fd=new FormData();
+  fd.append("action","edit");
+  fd.append("id",id);
+  fd.append("name",prompt("Name", s[1]));
+  fd.append("standard",prompt("Standard", s[4]));
+  fd.append("address",prompt("Address", s[5]));
+
+  fetch(API_URL,{method:"POST",body:fd}).then(()=>loadData());
+}
+
+function deleteStudent(id){
+  if(!confirm("Delete student?")) return;
+
+  const fd=new FormData();
+  fd.append("action","delete");
+  fd.append("id",id);
+
+  fetch(API_URL,{method:"POST",body:fd}).then(()=>loadData());
+}
+
+function mark(id,name,status,btn){
+  const today = new Date().toLocaleDateString('en-GB');
+  let localAtt = JSON.parse(localStorage.getItem("admin_attendance") || "{}");
+  if(localAtt.date !== today) {
+    localAtt = { date: today, records: {} };
+  }
+  localAtt.records[id] = status;
+  localStorage.setItem("admin_attendance", JSON.stringify(localAtt));
+
+  const fd=new FormData();
+  fd.append("action","attendance");
+  fd.append("id",id);
+  fd.append("name",name);
+  fd.append("status",status);
+
+  fetch(API_URL,{method:"POST",body:fd}).catch(err => console.error(err));
+
+  if(status==="Present"){
+    btn.style.background="var(--success)";
+    btn.style.color="white";
+    btn.nextElementSibling.style.background="#f1f2f6";
+    btn.nextElementSibling.style.color="var(--dark)";
+  } else {
+    btn.style.background="var(--danger)";
+    btn.style.color="white";
+    btn.previousElementSibling.style.background="#f1f2f6";
+    btn.previousElementSibling.style.color="var(--dark)";
+  }
+}
+
+function savePayment(id){
+  const fd=new FormData();
+  fd.append("action","payment");
+  fd.append("id",id);
+  fd.append("amount",document.getElementById("amt-"+id).value);
+  fd.append("mode",document.getElementById("mode-"+id).value);
+  fd.append("utr",document.getElementById("utr-"+id).value);
+
+  fetch(API_URL,{method:"POST",body:fd}).then(()=>loadData());
+}
+
+function uploadPhotos(){
+  const files=document.getElementById("activityPhotos").files;
+  const checkboxes=document.querySelectorAll("#studentSelect input:checked");
+
+  if(files.length===0) return alert("Select photos");
+
+  let ids=[];
+  checkboxes.forEach(c=>ids.push(c.value));
+
+  if(ids.length===0) return alert("Select students");
+
+  let arr=[];
+
+  for(let i=0;i<files.length;i++){
+    let reader=new FileReader();
+
+    reader.onload=function(e){
+      arr.push({name:files[i].name,data:e.target.result});
+
+      if(arr.length===files.length){
+        const fd=new FormData();
+        fd.append("action","uploadActivityPhotos");
+        fd.append("files",JSON.stringify(arr));
+        fd.append("studentIds",JSON.stringify(ids));
+
+        fetch(API_URL,{method:"POST",body:fd})
+        .then(()=>{
+          alert("Uploaded ✅");
+          document.getElementById("activityPhotos").value = "";
+          checkboxes.forEach(c => c.checked = false);
+        });
+      }
+    };
+
+    reader.readAsDataURL(files[i]);
+  }
+}
+
+function toggleAllStudents(checkbox) {
+  const allBoxes = document.querySelectorAll("#studentSelect input[type='checkbox']");
+  allBoxes.forEach(b => b.checked = checkbox.checked);
+}
+
+function bulkPrintCards(){
+  const checkboxes = document.querySelectorAll("#studentSelect input:checked");
+  if(checkboxes.length === 0) return alert("Select at least one student to print ID cards.");
+
+  let ids = [];
+  checkboxes.forEach(c => ids.push(c.value));
+  
+  let cardsHTML = "";
+  
+  ids.forEach(id => {
+    let student = students.find(s => s[0] == id);
+    if(student) {
+      let photoUrl = student[10] || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+      cardsHTML += `
+          <div class="idCard-container">
+            <div class="card-header">चिमुकला उत्सव SUMMER CAMP 2026</div>
+            <div class="id-body">
+              <div class="id-photo-container">
+                 <img src="${photoUrl}" class="id-photo">
+                 <div class="photo-id-text">ID: <span>${student[0]}</span></div>
+              </div>
+              <div class="id-details">
+                <div class="id-details-row"><label>Name</label><span class="cardName">${student[1]}</span></div>
+                <div class="id-details-row"><label>Mobile</label><span>${student[7]}</span></div>
+                <div class="id-details-row"><label>Address</label><span>${student[5]}</span></div>
+              </div>
+            </div>
+            <div class="id-footer">Summer Camp 2026 Official ID Card</div>
+          </div>
+      `;
+    }
+  });
+
+  const w = window.open("");
+  w.document.write(`
+    <html>
+      <head>
+        <title>Bulk Print ID Cards</title>
+        <style>
+          @media print {
+            @page { size: A4 portrait; margin: 12mm; }
+            body { margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; background: transparent; }
+          }
+          body { 
+            font-family: 'Arial', sans-serif; 
+            margin: 0; background: #eee; padding: 20px; display: flex; justify-content: center;
+          }
+          .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 336px); 
+            gap: 15px; 
+            justify-content: center;
+            background: #fff;
+            padding: 10px;
+          }
+          
+          .idCard-container {
+            display: block !important;
+            width: 336px !important;
+            height: 216px !important; 
+            box-sizing: border-box;
+            border-radius: 8px;
+            background-color: #fef9e7;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e67e22;
+            page-break-inside: avoid;
+            break-inside: avoid;
+          }
+          .idCard-container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('logo.jpg');
+            background-size: 60%;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.15;
+            z-index: 1;
+          }
+          .card-header, .id-body, .id-footer { position: relative; z-index: 2; }
+          .card-header { 
+            background: #e67e22;
+            color: white;
+            text-align: center; 
+            font-weight: bold; 
+            font-size: 15px; 
+            padding: 4px 5px;
+            margin-bottom: 8px;
+            border-bottom: 2px solid #d35400;
+          }
+          .id-body { 
+            display: flex; gap: 12px; align-items: flex-start; padding: 0 12px;
+          }
+          .id-photo-container { text-align: center; width: 75px; }
+          .id-photo { 
+            width: 75px; height: 90px; border-radius: 6px; object-fit: cover; border: 2px solid #e67e22; background: #fff;
+          }
+          .photo-id-text { font-size: 11px; font-weight: 900; color: #d35400; margin-top: 4px; background: rgba(255,255,255,0.8); border-radius: 4px; padding: 2px 0; }
+          .id-details { flex: 1; width: 100%; text-align: left; }
+          .id-details-row { margin-bottom: 5px; line-height: 1.2; }
+          .id-details-row label { display: block; font-size: 9px; color: #e67e22; text-transform: uppercase; font-weight: bold; margin-bottom: 1px; }
+          .id-details-row span { display: block; font-size: 13px; color: #1a3c5a; font-weight: bold; word-break: break-word; }
+          .cardName { font-size: 16px !important; font-weight: 900 !important; color: #0b223d !important; letter-spacing: 0.5px; margin-bottom: 3px; }
+          .id-footer { background: #1a3c5a; text-align: center; padding: 4px; font-size: 10px; color: #fff; position: absolute; bottom: 0; width: 100%; box-sizing: border-box; font-weight: bold; letter-spacing: 0.5px; }
+        </style>
+      </head>
+      <body>
+        <div class="cards-grid">
+           ` + cardsHTML + `
+        </div>
+      </body>
+    </html>`);
+  w.document.close();
+  setTimeout(() => { w.focus(); w.print(); }, 1200);
+}
+
+function toggleUpload(){
+  const panel=document.getElementById("uploadPanel");
+  panel.style.display = (panel.style.display==="none") ? "block" : "none";
+}
+</script>
+</body>
+</html>
