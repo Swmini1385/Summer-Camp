@@ -491,6 +491,9 @@
       }
     }
   </style>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f48024">
+  <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=Camp&background=f48024&color=fff&size=512">
 </head>
 
 <body>
@@ -754,6 +757,14 @@
           btn.innerText = "💳 Pay Now & Submit";
           if (confBtn) { confBtn.disabled = false; confBtn.innerText = "✅ Payment Completed (Submit Form)"; }
         });
+    }
+  </script>
+  
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(function() {
+        console.log("Service Worker Registered");
+      });
     }
   </script>
 </body>
