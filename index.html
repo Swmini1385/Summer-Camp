@@ -115,11 +115,13 @@
       overflow-x: auto;
       padding: 15px 5px 30px 5px;
       margin-bottom: 20px;
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
       justify-content: flex-start;
     }
-    
+
     @media (min-width: 1000px) {
       .activities {
         justify-content: center;
@@ -127,11 +129,13 @@
     }
 
     .activities::-webkit-scrollbar {
-      display: none; /* Chrome, Safari and Opera */
+      display: none;
+      /* Chrome, Safari and Opera */
     }
 
     .box {
-      flex: 0 0 115px; /* Reduced width to easily fit all 7 without cutting */
+      flex: 0 0 115px;
+      /* Reduced width to easily fit all 7 without cutting */
       background: white;
       padding: 20px 5px;
       border-radius: 25px;
@@ -156,7 +160,7 @@
       border-radius: 50%;
       background: #f1f2f6;
       transition: transform 0.4s ease;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.03);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.03);
     }
 
     .box .text {
@@ -176,20 +180,61 @@
     }
 
     /* Colorful Accents for Each Card */
-    .box:nth-child(1) { border-color: #ff9ff3; }
-    .box:nth-child(1) .icon { background: #ffeaf8; }
-    .box:nth-child(2) { border-color: #feca57; }
-    .box:nth-child(2) .icon { background: #fff6e0; }
-    .box:nth-child(3) { border-color: #ff6b6b; }
-    .box:nth-child(3) .icon { background: #ffe3e3; }
-    .box:nth-child(4) { border-color: #48dbfb; }
-    .box:nth-child(4) .icon { background: #e0f9ff; }
-    .box:nth-child(5) { border-color: #1dd1a1; }
-    .box:nth-child(5) .icon { background: #e3fcf5; }
-    .box:nth-child(6) { border-color: #5f27cd; }
-    .box:nth-child(6) .icon { background: #f0e6ff; }
-    .box:nth-child(7) { border-color: #ff9f43; }
-    .box:nth-child(7) .icon { background: #ffefe0; }
+    .box:nth-child(1) {
+      border-color: #ff9ff3;
+    }
+
+    .box:nth-child(1) .icon {
+      background: #ffeaf8;
+    }
+
+    .box:nth-child(2) {
+      border-color: #feca57;
+    }
+
+    .box:nth-child(2) .icon {
+      background: #fff6e0;
+    }
+
+    .box:nth-child(3) {
+      border-color: #ff6b6b;
+    }
+
+    .box:nth-child(3) .icon {
+      background: #ffe3e3;
+    }
+
+    .box:nth-child(4) {
+      border-color: #48dbfb;
+    }
+
+    .box:nth-child(4) .icon {
+      background: #e0f9ff;
+    }
+
+    .box:nth-child(5) {
+      border-color: #1dd1a1;
+    }
+
+    .box:nth-child(5) .icon {
+      background: #e3fcf5;
+    }
+
+    .box:nth-child(6) {
+      border-color: #5f27cd;
+    }
+
+    .box:nth-child(6) .icon {
+      background: #f0e6ff;
+    }
+
+    .box:nth-child(7) {
+      border-color: #ff9f43;
+    }
+
+    .box:nth-child(7) .icon {
+      background: #ffefe0;
+    }
 
     .register-btn {
       display: block;
@@ -505,18 +550,25 @@
       <p style="font-size: 1.1rem; color: #555; margin-bottom: 10px;">Please complete your fee payment of <b
           style="color:var(--primary); font-size:1.3rem;">₹100</b> before submitting the form.</p>
 
-      <div style="background: #f1f2f6; padding: 12px 15px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; border: 1px solid #e1e5ee;">
-        <span style="font-weight: 700; color: var(--dark); font-size: 1.1rem; letter-spacing: 0.5px;">umbarkar.yogesh@ybl</span>
-        <button type="button" onclick="navigator.clipboard.writeText('umbarkar.yogesh@ybl'); alert('UPI ID Copied! \nआता तुमच्या PhonePe ॲप मध्ये जाऊन To Bank/UPI ID वर क्लिक करून ₹१०० पे करा.');" style="background: var(--dark); color: white; border: none; padding: 6px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Copy</button>
+      <div
+        style="background: #f1f2f6; padding: 12px 15px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; border: 1px solid #e1e5ee;">
+        <span
+          style="font-weight: 700; color: var(--dark); font-size: 1.1rem; letter-spacing: 0.5px;">umbarkar.yogesh@ybl</span>
+        <button type="button"
+          onclick="navigator.clipboard.writeText('umbarkar.yogesh@ybl'); alert('UPI ID Copied! \nआता तुमच्या PhonePe ॲप मध्ये जाऊन To Bank/UPI ID वर क्लिक करून ₹१०० पे करा.');"
+          style="background: var(--dark); color: white; border: none; padding: 6px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Copy</button>
       </div>
 
       <!-- Removed am=100 and added mc=0000 to bypass security blocked by PhonePe -->
-      <a href="upi://pay?pa=umbarkar.yogesh@ybl&pn=YOGESH%20SHRIDHAR%20UMBARKAR&cu=INR&mc=0000&tr=CAMP2026" class="upi-btn" style="margin: 10px 0;">📲 Open PhonePe / GPay</a>
+      <a href="upi://pay?pa=umbarkar.yogesh@ybl&pn=YOGESH%20SHRIDHAR%20UMBARKAR&cu=INR&mc=0000&tr=CAMP2026"
+        class="upi-btn" style="margin: 10px 0;">📲 Open PhonePe / GPay</a>
 
-      <p style="font-size: 0.85rem; color: #e74c3c; line-height:1.4; margin-bottom: 10px;"><i>टीप: जर Security एरर येत असेल, तर वरील UPI ID Copy करा आणि PhonePe वर जाऊन व्यक्तिशः ₹१०० भरा.</i></p>
+      <p style="font-size: 0.85rem; color: #e74c3c; line-height:1.4; margin-bottom: 10px;"><i>टीप: जर Security एरर येत
+          असेल, तर वरील UPI ID Copy करा आणि PhonePe वर जाऊन व्यक्तिशः ₹१०० भरा.</i></p>
 
       <div style="margin-top: 15px; padding: 10px; background: #fdfdfd; border-radius: 10px; border: 1px dashed #ccc;">
-        <p style="font-size: 0.95rem; color: #555; margin-top: 0; margin-bottom: 10px; line-height: 1.3;"><b>किंवा QR स्कॅन करा:</b></p>
+        <p style="font-size: 0.95rem; color: #555; margin-top: 0; margin-bottom: 10px; line-height: 1.3;"><b>किंवा QR
+            स्कॅन करा:</b></p>
         <img
           src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3Dumbarkar.yogesh%40ybl%26pn%3DYOGESH%2520SHRIDHAR%2520UMBARKAR%26am%3D100%26cu%3DINR%26mc%3D0000"
           alt="UPI QR Code"
@@ -525,7 +577,8 @@
 
       <hr style="border: none; border-top: 1px dashed #ddd; margin: 20px 0;">
 
-      <button class="confirm-pay-btn" id="confirmPayBtn" onclick="finalizeRegistration()">✅ Payment Completed (Submit Form)</button>
+      <button class="confirm-pay-btn" id="confirmPayBtn" onclick="finalizeRegistration()">✅ Payment Completed (Submit
+        Form)</button>
       <button class="cancel-pay-btn" onclick="closeModal()">Cancel / Pay Later</button>
     </div>
   </div>
@@ -535,7 +588,8 @@
   </header>
 
   <div class="action-bar">
-    <button id="installAppBtn" class="login-btn" style="display:none; margin-right: 15px; background: var(--secondary);">📱 Install ॲप</button>
+    <button id="installAppBtn" class="login-btn"
+      style="display:none; margin-right: 15px; background: var(--secondary);">📱 Install ॲप</button>
     <button class="login-btn" onclick="goLogin()">Admin / Parent Login ➡️</button>
   </div>
 
@@ -543,18 +597,40 @@
     <div class="about">
       <h2>Welcome to Summer Camp 2026</h2>
       <p style="line-height: 1.6;">सुट्टीचा आनंद दुप्पट, जेव्हा मुले शिकतील हसत-खेळत! 🚀<br>
-        <span style="color: var(--primary-dark); font-weight: bold; font-size: 1.1em;">मुलांसाठी मजेदार Activities आणि नाविन्यपूर्ण Learning चा अनोखा संगम..</span>
+        <span style="color: var(--primary-dark); font-weight: bold; font-size: 1.1em;">मुलांसाठी मजेदार Activities आणि
+          नाविन्यपूर्ण Learning चा अनोखा संगम..</span>
       </p>
     </div>
 
     <div class="activities">
-      <div class="box"><div class="icon">🎨</div><div class="text">Drawing</div></div>
-      <div class="box"><div class="icon">💃</div><div class="text">Dance</div></div>
-      <div class="box"><div class="icon">⚽</div><div class="text">Sports</div></div>
-      <div class="box"><div class="icon">📖</div><div class="text">Story Telling</div></div>
-      <div class="box"><div class="icon">✂️</div><div class="text">Craft</div></div>
-      <div class="box"><div class="icon">🧘</div><div class="text">Yoga</div></div>
-      <div class="box"><div class="icon">🎉</div><div class="text">Fun & Masti</div></div>
+      <div class="box">
+        <div class="icon">🎨</div>
+        <div class="text">Drawing</div>
+      </div>
+      <div class="box">
+        <div class="icon">💃</div>
+        <div class="text">Dance</div>
+      </div>
+      <div class="box">
+        <div class="icon">⚽</div>
+        <div class="text">Sports</div>
+      </div>
+      <div class="box">
+        <div class="icon">📖</div>
+        <div class="text">Story Telling</div>
+      </div>
+      <div class="box">
+        <div class="icon">✂️</div>
+        <div class="text">Craft</div>
+      </div>
+      <div class="box">
+        <div class="icon">🧘</div>
+        <div class="text">Yoga</div>
+      </div>
+      <div class="box">
+        <div class="icon">🎉</div>
+        <div class="text">Fun & Masti</div>
+      </div>
     </div>
 
     <button class="register-btn" onclick="showForm()">Register Now</button>
@@ -760,26 +836,26 @@
         });
     }
   </script>
-  
+
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').then(function() {
+      navigator.serviceWorker.register('sw.js').then(function () {
         console.log("Service Worker Registered");
       });
     }
 
     let deferredPrompt;
     const installBtn = document.getElementById('installAppBtn');
-    
+
     window.addEventListener('beforeinstallprompt', (e) => {
       // Prevent browser from showing default prompt automatically if needed
       e.preventDefault();
       deferredPrompt = e;
       // Show our custom install button
-      if(installBtn) installBtn.style.display = 'inline-block';
+      if (installBtn) installBtn.style.display = 'inline-block';
     });
 
-    if(installBtn) {
+    if (installBtn) {
       installBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
           // Show the install prompt
@@ -796,7 +872,7 @@
 
     window.addEventListener('appinstalled', () => {
       // Hide the app-provided install promotion
-      if(installBtn) installBtn.style.display = 'none';
+      if (installBtn) installBtn.style.display = 'none';
       console.log('PWA was installed');
     });
   </script>

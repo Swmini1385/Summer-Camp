@@ -164,42 +164,83 @@ header {
   box-shadow: 0 0 0 4px rgba(244, 128, 36, 0.15);
 }
 
-/* Table Design */
-.table-responsive {
-  overflow-x: auto;
+.student-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.student-card {
+  display: flex;
   background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 2px solid var(--secondary);
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  max-width: 100%;
 }
 
-table { 
-  width: 100%; 
-  border-collapse: collapse; 
-  text-align: left;
+.sc-header-labels {
+  display: flex;
+  background: transparent;
+  margin-bottom: -1px;
 }
-
-thead th {
-  background: #fdfdfd;
+.label-tab {
+  border: 1px solid var(--dark);
+  border-bottom: none;
+  background: var(--card-bg);
+  padding: 4px 10px;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: var(--dark);
-  padding: 15px;
-  border-bottom: 2px solid var(--border);
+  text-align: center;
 }
-
-th, td { 
-  border-bottom: 1px solid var(--border); 
-  padding: 15px; 
-  vertical-align: top; 
+.sr-col {
+  width: 60px;
+  border-right: 1px solid var(--dark);
+  display: flex;
+  flex-direction: column;
 }
-
-tr:last-child td { border-bottom: none; }
-tr:hover { background: #fafafa; }
-
-.profile-section { text-align: center; width: 100px; }
-.child-photo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); margin-bottom: 8px; }
+.sr-label {
+  border-bottom: 1px solid var(--dark);
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+  background: #fdfdfd;
+}
+.sr-num {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.prof-col {
+  width: 120px;
+  border-right: 1px solid var(--dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.prof-label {
+  border-bottom: 1px solid var(--dark);
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+  background: #fdfdfd;
+  box-sizing: border-box;
+}
+.prof-body {
+  padding: 10px;
+  text-align: center;
+}
+.child-photo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-bottom: 5px; background: #3498db; }
 .id-box { 
   background: #f1f2f6; 
-  font-size: 12px; 
+  font-size: 13px; 
   padding: 4px 8px; 
   border-radius: 4px;
   display: inline-block; 
@@ -209,58 +250,75 @@ tr:hover { background: #fafafa; }
   border: 1px solid #ccc;
 }
 
-.name-text { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: var(--dark); }
-
-.btn-row { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
-.btn-row button { 
-  border: none; 
-  background: #eef2f5; 
-  padding: 6px 12px; 
-  font-size: 12px; 
-  font-weight: 600;
-  border-radius: 6px;
-  cursor: pointer; 
-  transition: 0.2s;
+.det-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.det-label {
+  border-bottom: 1px solid var(--dark);
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+  background: #fdfdfd;
+}
+.det-body {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.name-box {
+  border: 1px solid var(--dark);
+  padding: 8px 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: #eee;
   color: var(--dark);
 }
-.btn-row button:hover { background: #cbd4db; }
-
-.payment-row { 
-  background: #fdfdfd; 
-  padding: 12px; 
-  border-radius: 8px;
-  border: 1px dashed #ccc;
+.pay-row {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
 }
-
-.input-group { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-.input-group input { 
-  border: 1px solid #ccc; 
-  padding: 6px 10px; 
-  border-radius: 4px;
-  font-family: inherit;
-}
-.input-group b { color: #555; }
-
-.action-row { display: flex; gap: 10px; flex-wrap: wrap; }
-.action-row select {
+.pay-input {
+  border: 1px solid var(--dark);
   padding: 6px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
   font-family: inherit;
 }
-
-.btn-save { background: var(--success); color: white; border: none; padding: 6px 15px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s;}
-.btn-save:hover { background: #509e35; }
-
-.btn-clear { background: #95a5a6; color: white; border: none; padding: 6px 15px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s;}
-.btn-clear:hover { background: #7f8c8d; }
+.btn {
+  padding: 6px 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  border: 1px solid var(--dark);
+}
+.btn-save { background: var(--success); }
+.btn-clear { background: #7f8c8d; }
+.btn-pres { background: var(--success); }
+.btn-abs { background: var(--danger); }
+.btn-edit { background: #3498db; }
+.btn-del { background: #95a5a6; }
+.act-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
 @media (max-width: 768px) {
-  th, td { padding: 6px; font-size: 0.85rem; }
+  .student-card {
+    flex-direction: row;
+    font-size: 0.9rem;
+    overflow-x: auto;
+  }
+  .sr-col { min-width: 50px; }
+  .prof-col { min-width: 100px; }
+  .det-col { min-width: 350px; }
   .child-photo { width: 50px; height: 50px; }
-  .btn-row button, .action-row button, .action-row select { font-size: 0.8rem; padding: 4px 8px; }
-  .input-group input { font-size: 0.8rem; padding: 4px; }
-  .id-box { padding: 2px 5px; font-size: 10px; }
+  .btn { font-size: 0.8rem; padding: 5px 8px; }
 }
 </style>
 </head>
@@ -303,19 +361,8 @@ tr:hover { background: #fafafa; }
     <input type="text" id="search" class="search-box" placeholder="Search ID or Name..." onkeyup="renderTable()">
   </div>
 
-  <div class="table-responsive">
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 50px;">Sr</th>
-          <th>Profile</th>
-          <th>Details & Actions</th>
-        </tr>
-      </thead>
-      <tbody id="studentBody">
-        <!-- Records will load here -->
-      </tbody>
-    </table>
+  <div class="student-list" id="studentBody">
+    <!-- Records will load here -->
   </div>
 </div>
 
@@ -378,46 +425,45 @@ function renderTable(){
     if(s[1].toLowerCase().indexOf(search)===-1 && s[0].toLowerCase().indexOf(search)===-1) return;
 
     let stat = localAtt.records[s[0]];
-    let btnPStyle = stat === 'Present' ? 'background: var(--success); color: white;' : '';
-    let btnAStyle = stat === 'Absent' ? 'background: var(--danger); color: white;' : '';
+    let btnPStyle = stat === 'Present' ? 'border: 2px solid black;' : '';
+    let btnAStyle = stat === 'Absent' ? 'border: 2px solid black;' : '';
 
     tbody.innerHTML += `
-<tr>
-<td style="text-align:center;"><b>${sr++}</b></td>
-
-<td class="profile-section">
-<img src="${s[10] || 'https://via.placeholder.com/70'}" class="child-photo"><br>
-<span class="id-box" onclick="openProfile('${s[0]}')">${s[0]}</span>
-</td>
-
-<td>
-<div class="name-text">${s[1]}</div>
-
-<div class="btn-row">
-<button id="btnP-${s[0]}" style="${btnPStyle}" onclick="mark('${s[0]}','${s[1]}','Present',this)">✔️ Present</button>
-<button id="btnA-${s[0]}" style="${btnAStyle}" onclick="mark('${s[0]}','${s[1]}','Absent',this)">❌ Absent</button>
-<button onclick="editStudent('${s[0]}')">✏️ Edit</button>
-<button onclick="deleteStudent('${s[0]}')">🗑️ Delete</button>
-</div>
-
-<div class="payment-row">
-<div class="input-group">
-<b>₹</b> <input type="number" id="amt-${s[0]}" value="${s[11]||''}" style="width: 55px; padding: 4px;">
-<b>UTR</b> <input type="text" id="utr-${s[0]}" value="${s[13]||''}" style="width: 125px; padding: 4px;">
-</div>
-
-<div class="action-row">
-<select id="mode-${s[0]}">
-<option value="Cash" ${s[12]==='Cash'?'selected':''}>Cash</option>
-<option value="Online" ${s[12]==='Online'?'selected':''}>Online</option>
-</select>
-
-<button class="btn-save" onclick="savePayment('${s[0]}')">Save</button>
-<button class="btn-clear" onclick="clearPayment('${s[0]}')">Clear</button>
-</div>
-</div>
-</td>
-</tr>`;
+<div class="student-card">
+  <div class="sr-col">
+    <div class="sr-label">Sr.</div>
+    <div class="sr-num">${sr++}</div>
+  </div>
+  <div class="prof-col">
+    <div class="prof-label">Profile</div>
+    <div class="prof-body">
+      ${!s[10] ? `<div class="child-photo" style="display:inline-flex;align-items:center;justify-content:center;color:white;font-size:10px;">Photo</div>` : `<img src="${s[10]}" class="child-photo">`}
+      <span class="id-box" onclick="openProfile('${s[0]}')">${s[0]}</span>
+    </div>
+  </div>
+  <div class="det-col">
+    <div class="det-label">Details & actions</div>
+    <div class="det-body">
+      <div class="name-box">${s[1]}</div>
+      <div class="pay-row">
+        <input type="number" id="amt-${s[0]}" class="pay-input" placeholder="Rs" value="${s[11]||''}" style="width: 60px;">
+        <select id="mode-${s[0]}" class="pay-input" style="width: 90px;">
+          <option value="CASH" ${s[12]==='Cash'||!s[12]?'selected':''}>CASH ^</option>
+          <option value="ONLINE" ${s[12]==='Online'?'selected':''}>ONLINE ^</option>
+        </select>
+        <input type="text" id="utr-${s[0]}" class="pay-input" placeholder="UTR" value="${s[13]||''}" style="width: 100px;">
+        <button class="btn btn-save" onclick="savePayment('${s[0]}')">Save</button>
+        <button class="btn btn-clear" onclick="clearPayment('${s[0]}')">Clear</button>
+      </div>
+      <div class="act-row">
+        <button id="btnP-${s[0]}" class="btn btn-pres" style="${btnPStyle}" onclick="mark('${s[0]}','${s[1]}','Present',this)">Present</button>
+        <button id="btnA-${s[0]}" class="btn btn-abs" style="${btnAStyle}" onclick="mark('${s[0]}','${s[1]}','Absent',this)">Absent</button>
+        <button class="btn btn-edit" onclick="editStudent('${s[0]}')">Edit</button>
+        <button class="btn btn-del" onclick="deleteStudent('${s[0]}')">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>`;
   });
   
   // After local rendering, sync true data from Google Sheets backend
@@ -441,10 +487,10 @@ function syncTodayAttendance() {
        let btnA = document.getElementById("btnA-" + id);
        if(btnP && btnA) {
           if(status === "Present") {
-             btnP.style.cssText = "background:var(--secondary); color:#fff; font-weight:bold; box-shadow:0 4px 10px rgba(106,176,76,0.5);";
+             btnP.style.cssText = "border: 2px solid black;";
              btnA.style.cssText = "";
           } else if(status === "Absent") {
-             btnA.style.cssText = "background:var(--danger); color:#fff; font-weight:bold; box-shadow:0 4px 10px rgba(231,76,60,0.5);";
+             btnA.style.cssText = "border: 2px solid black;";
              btnP.style.cssText = "";
           }
        }
@@ -504,15 +550,11 @@ function mark(id,name,status,btn){
   fetch(API_URL,{method:"POST",body:fd}).catch(err => console.error(err));
 
   if(status==="Present"){
-    btn.style.background="var(--success)";
-    btn.style.color="white";
-    btn.nextElementSibling.style.background="#f1f2f6";
-    btn.nextElementSibling.style.color="var(--dark)";
+    btn.style.border="2px solid black";
+    btn.nextElementSibling.style.border="1px solid var(--dark)";
   } else {
-    btn.style.background="var(--danger)";
-    btn.style.color="white";
-    btn.previousElementSibling.style.background="#f1f2f6";
-    btn.previousElementSibling.style.color="var(--dark)";
+    btn.style.border="2px solid black";
+    btn.previousElementSibling.style.border="1px solid var(--dark)";
   }
 }
 
