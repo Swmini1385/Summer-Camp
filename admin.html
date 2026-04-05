@@ -298,8 +298,6 @@ header {
 }
 .btn-save { background: var(--success); }
 .btn-clear { background: #7f8c8d; }
-.btn-pres { background: var(--success); }
-.btn-abs { background: var(--danger); }
 .btn-edit { background: #3498db; }
 .btn-del { background: #95a5a6; }
 .act-row {
@@ -311,15 +309,46 @@ header {
 @media (max-width: 768px) {
   .student-card {
     flex-direction: row;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  .sr-col { min-width: 50px; }
-  .prof-col { min-width: 100px; }
-  .det-col { min-width: 350px; }
-  .child-photo { width: 50px; height: 50px; }
-  .btn { font-size: 0.8rem; padding: 5px 8px; }
+  .sr-col { min-width: 40px; }
+  .prof-col { min-width: 85px; }
+  .det-col { min-width: 300px; } /* Reduced from 350px to fit better */
+  .child-photo { width: 45px; height: 45px; }
+  .btn { font-size: 0.75rem; padding: 4px 6px; }
+  .name-box { padding: 6px 10px; font-size: 1rem; }
+  .pay-input { padding: 4px; font-size: 0.8rem; }
 }
+
+/* Attendance Button Styles */
+.btn-pres { 
+  background: #fff; 
+  color: var(--success); 
+  border: 1.5px solid var(--success) !important;
+  opacity: 0.7;
+}
+.btn-pres.active { 
+  background: var(--success) !important; 
+  color: #fff !important; 
+  opacity: 1;
+  box-shadow: 0 2px 8px rgba(106, 176, 76, 0.4);
+}
+
+.btn-abs { 
+  background: #fff; 
+  color: var(--danger); 
+  border: 1.5px solid var(--danger) !important;
+  opacity: 0.7;
+}
+.btn-abs.active { 
+  background: var(--danger) !important; 
+  color: #fff !important; 
+  opacity: 1;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+}
+
 </style>
 </head>
 
@@ -425,8 +454,8 @@ function renderTable(){
     if(s[1].toLowerCase().indexOf(search)===-1 && s[0].toLowerCase().indexOf(search)===-1) return;
 
     let stat = localAtt.records[s[0]];
-    let btnPStyle = stat === 'Present' ? 'border: 2px solid black;' : '';
-    let btnAStyle = stat === 'Absent' ? 'border: 2px solid black;' : '';
+    let btnPClass = stat === 'Present' ? 'active' : '';
+    let btnAClass = stat === 'Absent' ? 'active' : '';
 
     tbody.innerHTML += `
 <div class="student-card">
@@ -456,8 +485,8 @@ function renderTable(){
         <button class="btn btn-clear" onclick="clearPayment('${s[0]}')">Clear</button>
       </div>
       <div class="act-row">
-        <button id="btnP-${s[0]}" class="btn btn-pres" style="${btnPStyle}" onclick="mark('${s[0]}','${s[1]}','Present',this)">Present</button>
-        <button id="btnA-${s[0]}" class="btn btn-abs" style="${btnAStyle}" onclick="mark('${s[0]}','${s[1]}','Absent',this)">Absent</button>
+        <button id="btnP-${s[0]}" class="btn btn-pres ${btnPClass}" onclick="mark('${s[0]}','${s[1]}','Present',this)">Present</button>
+        <button id="btnA-${s[0]}" class="btn btn-abs ${btnAClass}" onclick="mark('${s[0]}','${s[1]}','Absent',this)">Absent</button>
         <button class="btn btn-edit" onclick="editStudent('${s[0]}')">Edit</button>
         <button class="btn btn-del" onclick="deleteStudent('${s[0]}')">Delete</button>
       </div>
@@ -481,20 +510,20 @@ function syncTodayAttendance() {
     localStorage.setItem("admin_attendance", JSON.stringify(localAtt)); // Update local storage cache
     
     // Update live UI buttons to reflect actual backend state
-    for(let id in data) {
-       let status = data[id];
-       let btnP = document.getElementById("btnP-" + id);
-       let btnA = document.getElementById("btnA-" + id);
-       if(btnP && btnA) {
-          if(status === "Present") {
-             btnP.style.cssText = "border: 2px solid black;";
-             btnA.style.cssText = "";
-          } else if(status === "Absent") {
-             btnA.style.cssText = "border: 2px solid black;";
-             btnP.style.cssText = "";
-          }
-       }
-    }
+     for(let id in data) {
+        let status = data[id];
+        let btnP = document.getElementById("btnP-" + id);
+        let btnA = document.getElementById("btnA-" + id);
+        if(btnP && btnA) {
+           if(status === "Present") {
+              btnP.classList.add("active");
+              btnA.classList.remove("active");
+           } else if(status === "Absent") {
+              btnA.classList.add("active");
+              btnP.classList.remove("active");
+           }
+        }
+     }
   })
   .catch(err => console.log("Failed to sync attendance from backend.", err));
 }
@@ -550,11 +579,11 @@ function mark(id,name,status,btn){
   fetch(API_URL,{method:"POST",body:fd}).catch(err => console.error(err));
 
   if(status==="Present"){
-    btn.style.border="2px solid black";
-    btn.nextElementSibling.style.border="1px solid var(--dark)";
+    btn.classList.add("active");
+    btn.nextElementSibling.classList.remove("active");
   } else {
-    btn.style.border="2px solid black";
-    btn.previousElementSibling.style.border="1px solid var(--dark)";
+    btn.classList.add("active");
+    btn.previousElementSibling.classList.remove("active");
   }
 }
 
